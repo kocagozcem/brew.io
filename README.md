@@ -1,31 +1,13 @@
-# RN-Preset-Project
+# brew.io
 
-RN-Preset-Project is Ready-to-start configured project for React Native. <br>
-It's created by following; [Atolye15 crna-recipe](https://github.com/atolye15/crna-recipe)
+Brew.io is an React Native project which is i create for improve myself. I'm trying to work on it on my free times. I'm in the initial stages of the project so i hope everything gonna be better than that (especially UI)
 
-#### Current React-Native Version; 0.62
+## What is brew.io
 
-#### Contains;
+Brew.io is a coffee recipes application. It will contain recipes and some criterions about the recipe (like intensity, cost, attainibility). Probably I'm not gonna create an database and backend services because i just trying to create a completed React Native application.
 
-- Typescript
-- Storybook
-- Eslint
-- Jest
-- React navigation
-- React native vector icons
-- react-native-i18n
+## Goals
 
-### Hermes (Activated)
-
-Hermes is an open-source JavaScript engine optimized for running React Native apps on Android. For many apps, enabling Hermes will result in improved start-up time, decreased memory usage, and smaller app size. At this time Hermes is an opt-in React Native feature. <br>
-[More about Hermes](https://reactnative.dev/docs/hermes)
-
-### To Start Using;
-
-- Clone the repo;
-  `git clone https://github.com/kocagozcem/rn-preset-project.git`
-- Change app name from `project-x` to your app name by searching on project
-- Change `%APP_NAME%` at `src/storybook/storybook.ts` to your app name
-- Run project;
-  android -> `npm run android`
-  ios -> `npm run ios`
+- Complete application (ofc)
+- Write tests
+- Create an eye-pleasing UI
