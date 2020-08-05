@@ -5,7 +5,7 @@ import {useNavigation} from '@react-navigation/native';
 function Thumbnail() {
   const navigation = useNavigation();
   return (
-    <TouchableHighlight onPress={() => navigation.navigate('Details')}>
+    <TouchableHighlight onPress={() => navigation.navigate('Details')} style={styles.touchable}>
       <View style={styles.card}>
         <View style={styles.imageContainer}>
           <Image
@@ -30,9 +30,12 @@ function Thumbnail() {
 }
 
 const styles = StyleSheet.create({
-  card: {
+  touchable: {
     width: 120,
     height: 180,
+  },
+  card: {
+    flex: 1,
     borderRadius: 15,
     overflow: 'hidden',
   },
