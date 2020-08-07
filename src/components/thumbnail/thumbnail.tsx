@@ -1,32 +1,49 @@
 import * as React from 'react';
 import {View, Text, StyleSheet, Image, TouchableHighlight} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {Recipe} from '../../models/recipe';
 
-function Thumbnail() {
+interface Props {
+  recipe: Recipe;
+}
+
+function Thumbnail(props: Props) {
   const navigation = useNavigation();
-  return (
-    <TouchableHighlight onPress={() => navigation.navigate('Details')} style={styles.touchable}>
-      <View style={styles.card}>
-        <View style={styles.imageContainer}>
-          <Image
-            source={{
-              uri:
-                'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQVKNFfQsBHhIZG96azPFrZbb_rfDYeeOEMzA&usqp=CAU',
-            }}
-            style={styles.image}
-          />
-        </View>
-        <View style={styles.titleContainer}>
-          <Text lineBreakMode="clip" numberOfLines={1} style={styles.title}>
-            Latte matte falan işte
-          </Text>
-          <View style={styles.scoreContainer}>
-            <Text style={styles.scoreText}>4.4</Text>
+  const {recipe} = props;
+  const {image} = recipe;
+  if (recipe !== null) {
+    return (
+      <TouchableHighlight
+        onPress={() => navigation.navigate('Details', {recipe})}
+        style={styles.touchable}
+      >
+        <View style={styles.card}>
+          <View style={styles.imageContainer}>
+            {image !== null ? (
+              <Image
+                source={{
+                  uri: image,
+                }}
+                style={styles.image}
+              />
+            ) : (
+              <Text>error</Text>
+            )}
+          </View>
+          <View style={styles.titleContainer}>
+            <Text lineBreakMode="clip" numberOfLines={1} style={styles.title}>
+              {recipe.name}
+            </Text>
+            <View style={styles.scoreContainer}>
+              <Text style={styles.scoreText}>{recipe.rate}</Text>
+            </View>
           </View>
         </View>
-      </View>
-    </TouchableHighlight>
-  );
+      </TouchableHighlight>
+    );
+  }
+
+  return <View />;
 }
 
 const styles = StyleSheet.create({

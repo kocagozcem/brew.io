@@ -3,52 +3,23 @@ import {View, Text, StyleSheet} from 'react-native';
 import HeaderImageScrollView, {TriggeringView} from 'react-native-image-header-scroll-view';
 import {Icon} from 'native-base';
 import * as Animatable from 'react-native-animatable';
+import {Recipe} from '../models/recipe';
+import {Qualification} from '../models/qualification';
 import colors from '../assets/colors';
 import Percantage from '../components/percantage/percantage';
 
-interface Item {
-  amount: string;
-  item: string;
+interface Params {
+  recipe: Recipe;
 }
-
-interface Qualification {
+interface Route {
+  key: string;
   name: string;
-  value: number;
+  params: Params;
 }
 
-interface Recipe {
-  name: string;
-  items: Array<Item>;
-  recipe: string;
-  image: string;
-  qualifications: Array<Qualification>;
+interface Props {
+  route: Route;
 }
-
-const recipe: Recipe = {
-  name: 'Latte matte falan işte',
-  items: [
-    {amount: '2 table spoon', item: 'grinded espresso'},
-    {amount: '30cl', item: 'soy milk'},
-    {amount: '1 tea spoon', item: 'brown sugar'},
-  ],
-  recipe:
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-  image: 'images.jpg',
-  qualifications: [
-    {
-      name: 'Intensity',
-      value: 3,
-    },
-    {
-      name: 'Cost',
-      value: 2,
-    },
-    {
-      name: 'Attainability',
-      value: 5,
-    },
-  ],
-};
 
 function recipeItem(amount: string, item: string) {
   return (
@@ -60,7 +31,7 @@ function recipeItem(amount: string, item: string) {
   );
 }
 
-function qualifications() {
+function qualifications(recipe: Recipe) {
   return (
     <View style={styles.qualificationsContainer}>
       {recipe.qualifications.map((qualification: Qualification) => (
@@ -73,10 +44,10 @@ function qualifications() {
   );
 }
 
-function recipeContext() {
+function recipeContext(recipe: Recipe) {
   return (
     <View style={styles.context}>
-      {qualifications()}
+      {qualifications(recipe)}
       {recipe.items.map((item) => recipeItem(item.amount, item.item))}
       <View style={styles.recipeDetailsContainer}>
         <Text style={styles.recipeDetails}>{recipe.recipe}</Text>
@@ -85,7 +56,7 @@ function recipeContext() {
   );
 }
 
-function foreground() {
+function foreground(recipe: Recipe) {
   return (
     <View style={styles.foregroundContainer}>
       <Text style={[styles.headline, {color: colors.white, textShadowColor: colors.shadow}]}>
@@ -95,34 +66,38 @@ function foreground() {
   );
 }
 
-function RecipeDetailsScreen() {
-  // let navTitleView;
+function RecipeDetailsScreen({route}: Props) {
+  const [recipe] = React.useState(route.params.recipe);
+
   const navTitleView = React.useRef(null);
   return (
     <View style={styles.container}>
-      <HeaderImageScrollView
-        maxHeight={250}
-        minHeight={50}
-        maxOverlayOpacity={0.6}
-        minOverlayOpacity={0.3}
-        fadeOutForeground
-        // eslint-disable-next-line global-require
-        headerImage={require('../assets/images/images.jpg')}
-        // eslint-disable-next-line react/jsx-closing-bracket-location
-        renderFixedForeground={() => (
-          <Animatable.View style={styles.navTitleView} ref={navTitleView}>
-            <Text style={styles.navTitle}>{recipe.name}</Text>
-          </Animatable.View>
-        )}
-        renderForeground={() => foreground()}>
-        <View style={styles.content}>
-          <TriggeringView
-            onHide={() => navTitleView.current.fadeInUp(200)}
-            onDisplay={() => navTitleView.current.fadeOut(100)}>
-            {recipeContext()}
-          </TriggeringView>
-        </View>
-      </HeaderImageScrollView>
+      {recipe !== null && recipe !== undefined ? (
+        <HeaderImageScrollView
+          maxHeight={250}
+          minHeight={50}
+          maxOverlayOpacity={0.6}
+          minOverlayOpacity={0.3}
+          fadeOutForeground
+          // eslint-disable-next-line global-require
+          headerImage={require('../assets/images/images.jpg')}
+          renderFixedForeground={() => (
+            <Animatable.View style={styles.navTitleView} ref={navTitleView}>
+              <Text style={styles.navTitle}>{recipe.name}</Text>
+            </Animatable.View>
+          )}
+          renderForeground={() => foreground(recipe)}
+        >
+          <View style={styles.content}>
+            <TriggeringView
+              onHide={() => navTitleView.current.fadeInUp(200)}
+              onDisplay={() => navTitleView.current.fadeOut(100)}
+            >
+              {recipeContext(recipe)}
+            </TriggeringView>
+          </View>
+        </HeaderImageScrollView>
+      ) : null}
     </View>
   );
 }
@@ -156,7 +131,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     fontSize: 15,
     lineHeight: 32,
-    color: '#121010',
+    color: colors.lighterBlack,
   },
   itemContainer: {
     flexDirection: 'row',
@@ -199,9 +174,9 @@ const styles = StyleSheet.create({
     opacity: 0,
   },
   navTitle: {
-    color: 'white',
+    color: colors.white,
     fontSize: 18,
-    backgroundColor: 'transparent',
+    backgroundColor: colors.transparent,
   },
 });
 
