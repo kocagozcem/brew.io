@@ -4,15 +4,20 @@ import {useTheme} from '@react-navigation/native';
 import Header from '../components/header/header';
 import SearchBar from '../components/search-bar/search-bar';
 import Thumbnail from '../components/thumbnail/thumbnail';
+import {Recipe} from '../models/recipe';
+import mockData from '../mock/mock-recipe.json';
 
 function HomeScreen() {
   const {colors} = useTheme();
+  const recipes: Array<Recipe> = mockData;
   return (
     <View style={[styles.container, {backgroundColor: colors.background}]}>
       <Header />
       <SearchBar />
       <View style={styles.content}>
-        <Thumbnail />
+        {recipes.map((recipe) => {
+          return <Thumbnail recipe={recipe} key={recipe.id} />;
+        })}
       </View>
     </View>
   );
