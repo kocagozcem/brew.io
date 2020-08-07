@@ -29,7 +29,7 @@
     "@typescript-eslint/indent": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/no-use-before-define": "off",
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
+    "react/jsx-filename-extension": [1, {"extensions": [".js", ".jsx", ".ts", ".tsx"]}],
     "react/prop-types": "off",
     "react/button-has-type": "off",
     "no-use-before-define": "off",
@@ -51,7 +51,8 @@
     "react-native/no-color-literals": "error",
     "react/jsx-one-expression-per-line": "off",
     "@typescript-eslint/explicit-member-accessibility": "off",
-    "prettier/prettier": ["error"]
+    "prettier/prettier": ["error"],
+    "import/extensions": "off"
   },
   "overrides": [
     {
