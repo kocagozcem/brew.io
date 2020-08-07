@@ -1,0 +1,28 @@
+[
+  {
+    "id": 1,
+    "name": "Latte",
+    "items": [
+      {"amount": "2 table spoon", "item": "grinded espresso"},
+      {"amount": "30cl", "item": "soy milk"},
+      {"amount": "1 tea spoon", "item": "brown sugar"}
+    ],
+    "recipe": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQVKNFfQsBHhIZG96azPFrZbb_rfDYeeOEMzA&usqp=CAU",
+    "rate": "4.3",
+    "qualifications": [
+      {
+        "name": "Intensity",
+        "value": 3
+      },
+      {
+        "name": "Cost",
+        "value": 2
+      },
+      {
+        "name": "Attainability",
+        "value": 5
+      }
+    ]
+  }
+]
