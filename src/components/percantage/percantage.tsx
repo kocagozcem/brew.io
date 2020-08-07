@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-closing-bracket-location */
 import * as React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 import {Svg, Line} from 'react-native-svg';
@@ -41,7 +40,8 @@ function Percantage(props: Props) {
             style={[
               styles.italic,
               {fontSize: size * 0.3, marginLeft: size * 0.1, color: textColor},
-            ]}>
+            ]}
+          >
             {val}
           </Text>
         </View>
@@ -50,7 +50,8 @@ function Percantage(props: Props) {
             style={[
               styles.italic,
               {fontSize: size * 0.4, marginRight: size * 0.2, color: textColor},
-            ]}>
+            ]}
+          >
             {max}
           </Text>
         </View>
