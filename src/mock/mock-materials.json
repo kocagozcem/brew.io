@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "name": "Milk",
+    "unit": "ml"
+  },
+  {
+    "id": 2,
+    "name": "Chocholate Syrup",
+    "unit": "Tea Spoon"
+  },
+  {
+    "id": 3,
+    "name": "Espresso",
+    "unit": "Shot"
+  },
+  {
+    "id": 4,
+    "name": "Sugar",
+    "unit": "Table spoon"
+  },
+  {
+    "id": 5,
+    "name": "Brown Sugar",
+    "unit": "Table spoon"
+  },
+  {
+    "id": 6,
+    "name": "Grinded Espresso",
+    "unit": "Table spoon"
+  }
+]
