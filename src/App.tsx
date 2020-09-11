@@ -7,6 +7,7 @@ import {Provider} from 'react-redux';
 import reducer from './reducers/index';
 import HomeScreen from './pages/homescreen';
 import RecipeDetailsScreen from './pages/recipe-details-screen';
+import CreateRecipeScreen from './pages/create-recipe';
 
 declare const global: {HermesInternal: null | {}};
 const store = createStore(reducer);
@@ -43,6 +44,11 @@ const App = () => {
             name="Details"
             options={transparentHeaderOption}
             component={RecipeDetailsScreen}
+          />
+          <Stack.Screen
+            name="CreateRecipe"
+            options={noHeaderOption}
+            component={CreateRecipeScreen}
           />
         </Stack.Navigator>
       </NavigationContainer>
