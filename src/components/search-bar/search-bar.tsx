@@ -1,14 +1,39 @@
 import * as React from 'react';
-import {View, StyleSheet, TextInput} from 'react-native';
+import {View, StyleSheet, TextInput, TouchableOpacity} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {Icon} from 'native-base';
 
-function SearchBar() {
+interface Props {
+  valInput: Function;
+}
+
+function SearchBar(props: Props) {
   const {colors} = useTheme();
+  const inputRef: React.RefObject<TextInput> = React.useRef(null);
+  const [inputValue, setInputValue] = React.useState('');
+
+  const {valInput} = props;
+
+  function valChanged(text: string) {
+    valInput(text);
+    setInputValue(text);
+  }
+
   return (
     <View style={[styles.searchbarContainer, {borderColor: colors.border}]}>
-      <TextInput style={styles.searchInput} />
-      <Icon name="search" style={styles.searchIcon} />
+      <TextInput
+        style={styles.searchInput}
+        onChangeText={(text) => valChanged(text)}
+        value={inputValue}
+        ref={inputRef}
+      />
+      <TouchableOpacity onPress={() => (inputValue.length === 0 ? null : valChanged(''))}>
+        <Icon
+          type="FontAwesome5"
+          style={styles.searchIcon}
+          name={inputValue.length === 0 ? 'search' : 'times'}
+        />
+      </TouchableOpacity>
     </View>
   );
 }
