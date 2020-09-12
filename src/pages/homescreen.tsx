@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {View, StyleSheet, TouchableHighlight, Text} from 'react-native';
-import {useTheme, useNavigation} from '@react-navigation/native';
+import {View, StyleSheet} from 'react-native';
+import {useTheme} from '@react-navigation/native';
 import {useSelector, RootStateOrAny} from 'react-redux';
 import Header from '../components/header/header';
 import SearchBar from '../components/search-bar/search-bar';
@@ -13,7 +13,6 @@ function HomeScreen() {
   const [filteredRecipes, setFilteredRecipes] = React.useState<Array<Recipe>>([]);
   const deneme = useSelector((state: RootStateOrAny) => state.recipe);
   const [isLoading, setIsLoading] = React.useState(true);
-  const navigation = useNavigation();
 
   React.useEffect(() => {
     setRecipes(deneme.recipes);
@@ -37,18 +36,13 @@ function HomeScreen() {
 
   return (
     <View style={[styles.container, {backgroundColor: colors.background}]}>
-      <Header />
+      <Header hasCreate />
       <SearchBar valInput={(val: string) => search(val)} />
       <View style={styles.content}>
         {filteredRecipes.map((recipe) => {
           return <Thumbnail recipe={recipe} key={recipe.id} />;
         })}
       </View>
-      <TouchableHighlight onPress={() => navigation.navigate('CreateRecipe')}>
-        <View>
-          <Text>+</Text>
-        </View>
-      </TouchableHighlight>
     </View>
   );
 }
