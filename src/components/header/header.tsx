@@ -1,27 +1,38 @@
 import {useNavigation} from '@react-navigation/native';
 import {Icon} from 'native-base';
 import * as React from 'react';
-import {View, StyleSheet, TouchableHighlight} from 'react-native';
+import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import Logo from '../logo/logo';
 
 interface Props {
   hasCreate: boolean;
+  hasBackButton: boolean;
 }
 
 function Header(props: Props) {
   const {hasCreate} = props;
+  const {hasBackButton} = props;
   const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
+      {hasBackButton ? (
+        <View style={styles.backContainer}>
+          <TouchableOpacity onPress={() => navigation.navigate('CreateRecipe')}>
+            <View>
+              <Icon type="Feather" name="chevron-left" />
+            </View>
+          </TouchableOpacity>
+        </View>
+      ) : null}
       <Logo fontSize={25} />
       {hasCreate ? (
         <View style={styles.createContainer}>
-          <TouchableHighlight onPress={() => navigation.navigate('CreateRecipe')}>
+          <TouchableOpacity onPress={() => navigation.navigate('CreateRecipe')}>
             <View>
-              <Icon type="Ionicons" name="create-outline" />
+              <Icon type="Feather" name="create-outline" />
             </View>
-          </TouchableHighlight>
+          </TouchableOpacity>
         </View>
       ) : null}
     </View>
@@ -34,6 +45,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'stretch',
     paddingVertical: 10,
+  },
+
+  backContainer: {
+    position: 'absolute',
+    zIndex: 15,
+    left: 20,
+    top: 10,
   },
 
   createContainer: {
