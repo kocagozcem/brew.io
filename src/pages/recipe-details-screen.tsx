@@ -80,7 +80,7 @@ function RecipeDetailsScreen({route}: Props) {
           minOverlayOpacity={0.3}
           fadeOutForeground
           // eslint-disable-next-line global-require
-          headerImage={require('../assets/images/images.jpg')}
+          headerImage={{uri: recipe.image}}
           renderFixedForeground={() => (
             <Animatable.View style={styles.navTitleView} ref={navTitleView}>
               <Text style={styles.navTitle}>{recipe.name}</Text>
