@@ -1,7 +1,9 @@
 import * as React from 'react';
 import {View, Text, StyleSheet, Image, TouchableHighlight} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {Icon} from 'native-base';
 import {Recipe} from '../../models/recipe';
+import colors from '../../assets/colors';
 
 interface Props {
   recipe: Recipe;
@@ -36,6 +38,7 @@ function Thumbnail(props: Props) {
             </Text>
             <View style={styles.scoreContainer}>
               <Text style={styles.scoreText}>{recipe.rate}</Text>
+              <Icon type="Feather" name="coffee" style={styles.rateIcon} />
             </View>
           </View>
         </View>
@@ -59,11 +62,13 @@ const styles = StyleSheet.create({
   imageContainer: {
     flex: 3,
     alignSelf: 'stretch',
+    backgroundColor: colors.lightGray,
+    borderRadius: 15,
+    overflow: 'hidden',
   },
   image: {
     flex: 1,
     resizeMode: 'contain',
-    borderRadius: 15,
   },
   titleContainer: {
     flex: 2,
@@ -75,12 +80,18 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   scoreContainer: {
+    flexDirection: 'row',
     alignSelf: 'stretch',
-    alignItems: 'flex-end',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
   },
   scoreText: {
     fontSize: 14,
     fontWeight: 'bold',
+  },
+  rateIcon: {
+    fontSize: 18,
+    marginLeft: 3,
   },
 });
 
