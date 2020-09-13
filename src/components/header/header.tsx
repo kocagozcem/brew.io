@@ -7,11 +7,13 @@ import Logo from '../logo/logo';
 interface Props {
   hasCreate: boolean;
   hasBackButton: boolean;
+  logoFontsize: number;
 }
 
 function Header(props: Props) {
   const {hasCreate} = props;
   const {hasBackButton} = props;
+  const {logoFontsize} = props;
   const navigation = useNavigation();
 
   return (
@@ -25,7 +27,7 @@ function Header(props: Props) {
           </TouchableOpacity>
         </View>
       ) : null}
-      <Logo fontSize={25} />
+      <Logo fontSize={logoFontsize || 25} />
       {hasCreate ? (
         <View style={styles.createContainer}>
           <TouchableOpacity onPress={() => navigation.navigate('CreateRecipe')}>

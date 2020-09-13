@@ -36,7 +36,7 @@ function HomeScreen() {
 
   return (
     <View style={[styles.container, {backgroundColor: colors.background}]}>
-      <Header hasCreate hasBackButton={false} />
+      <Header hasCreate hasBackButton={false} logoFontsize={25} />
       <SearchBar valInput={(val: string) => search(val)} />
       <View style={styles.content}>
         {filteredRecipes.map((recipe) => {
