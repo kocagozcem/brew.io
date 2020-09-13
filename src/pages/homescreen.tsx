@@ -40,7 +40,7 @@ function HomeScreen() {
       <SearchBar valInput={(val: string) => search(val)} />
       <View style={styles.content}>
         {filteredRecipes.map((recipe) => {
-          return <Thumbnail recipe={recipe} key={recipe.id} />;
+          return (
         })}
       </View>
     </View>
