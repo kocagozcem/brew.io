@@ -9,14 +9,17 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 import {Form, Item, Label, Input, Content, Textarea, Icon} from 'native-base';
-import {useSelector, RootStateOrAny} from 'react-redux';
-import Logo from '../components/logo/logo';
+import {useSelector, RootStateOrAny, useDispatch} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
 import colors from '../assets/colors';
 import {Qualification} from '../models/qualification';
 import RateDialog from '../components/rate-dialog/rate-dialog';
 import {Material} from '../models/material';
 import MaterialSelect from '../components/material-select/material-select';
+import Header from '../components/header/header';
 import {SelectedMaterial} from '../models/selected-material';
+import {Recipe} from '../models/recipe';
+import {Item as ItemInterface} from '../models/item';
 
 const qualifications: Array<Qualification> = [
   {name: 'Intensity', value: 1},
@@ -38,6 +41,13 @@ function CreateRecipeScreen() {
   const [selectedMaterials, setSelectedMaterials] = React.useState<Array<SelectedMaterial>>([]);
   const [isLoading, setIsLoading] = React.useState(true);
 
+  const [name, setName] = React.useState<string>('');
+  const [photo, setPhoto] = React.useState<string>('');
+  const [description, setDescription] = React.useState<string>('');
+
+  const recipeDispatch = useDispatch();
+  const navigation = useNavigation();
+
   React.useEffect(() => {
     setMaterials(materialList.materials);
     setIsLoading(false);
@@ -53,6 +63,25 @@ function CreateRecipeScreen() {
     list = list.map((qual) => (qual.name === qualification.name ? qualification : qual));
     setQualificationList(list);
     setModalVisible(false);
+  }
+
+  function submitRecipe() {
+    const recipe: Recipe = {
+      id: 0,
+      name,
+      image: photo,
+      recipe: description,
+      qualifications: qualificationList,
+      items: selectedMaterials.map((material) => {
+        return {
+          amount: `${material.amount} ${material.material.unit}`,
+          item: material.material.name,
+        } as ItemInterface;
+      }),
+      rate: '0',
+    };
+    recipeDispatch({type: 'ADD_RECIPE', value: recipe});
+    navigation.goBack();
   }
 
   if (isLoading) {
@@ -91,18 +120,18 @@ function CreateRecipeScreen() {
 
   return (
     <View style={styles.container}>
-      <Logo fontSize={32} />
+      <Header logoFontsize={32} hasBackButton={false} hasCreate={false} />
       <Text style={styles.title}>Create Recipe</Text>
       <ScrollView style={styles.scrollView}>
         <Content>
           <Form>
             <Item stackedLabel>
               <Label>Name</Label>
-              <Input />
+              <Input value={name} onChangeText={(text) => setName(text)} />
             </Item>
             <Item stackedLabel>
               <Label>Photo URL</Label>
-              <Input />
+              <Input value={photo} onChangeText={(text) => setPhoto(text)} />
             </Item>
             <View style={styles.qualificationsContainer}>
               {qualificationList.map((val) => (
@@ -110,14 +139,6 @@ function CreateRecipeScreen() {
                   <Text style={styles.qualificationLabel}>{val.name}</Text>
                   <TouchableOpacity onPress={() => openQualificationModal(val)}>
                     <View style={styles.qualificationInputContainer}>
-                      {/* <Input
-                      keyboardType="number-pad"
-                      style={styles.qualificationInput}
-                      onChangeText={(text) => setQualificationValue(val, Number(text))}
-                      onKeyPress={(val) => console.log(val)}
-                      value={String(val.value)}
-                      placeholder={String(val.value)}
-                    /> */}
                       <Text style={styles.qualificationInput}>{val.value}</Text>
                       <Text
                         style={[styles.qualificationRateLimit, styles.qualificationRateLimitSmall]}
@@ -132,7 +153,14 @@ function CreateRecipeScreen() {
             </View>
             <Item stackedLabel last>
               <Label>Recipe Description</Label>
-              <Textarea underline rowSpan={5} bordered style={styles.textArea} />
+              <Textarea
+                underline
+                rowSpan={5}
+                bordered
+                style={styles.textArea}
+                value={description}
+                onChangeText={(text) => setDescription(text)}
+              />
             </Item>
           </Form>
         </Content>
@@ -151,7 +179,7 @@ function CreateRecipeScreen() {
           </TouchableOpacity>
         </View>
       </ScrollView>
-      <TouchableOpacity style={styles.createButtonTouchable}>
+      <TouchableOpacity style={styles.createButtonTouchable} onPress={() => submitRecipe()}>
         <View style={styles.createButton}>
           <Text style={styles.createButtonText}>Create</Text>
         </View>
