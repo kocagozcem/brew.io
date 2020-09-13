@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Dimensions} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {useSelector, RootStateOrAny} from 'react-redux';
 import Header from '../components/header/header';
@@ -11,19 +11,19 @@ function HomeScreen() {
   const {colors} = useTheme();
   const [recipes, setRecipes] = React.useState<Array<Recipe>>([]);
   const [filteredRecipes, setFilteredRecipes] = React.useState<Array<Recipe>>([]);
-  const deneme = useSelector((state: RootStateOrAny) => state.recipe);
+  const globalRecipes = useSelector((state: RootStateOrAny) => state.recipe);
   const [isLoading, setIsLoading] = React.useState(true);
 
   React.useEffect(() => {
-    setRecipes(deneme.recipes);
+    setRecipes(globalRecipes.recipes);
     setFilteredRecipes(recipes);
     setIsLoading(false);
   }, [recipes]);
 
   function search(val: string) {
     if (val.length > 0) {
-      let filtered = [...recipes];
-      filtered = filtered.filter((recipe) => recipe.name.toLowerCase().includes(val));
+      let filtered = [...globalRecipes.recipes];
+      filtered = filtered.filter((recipe) => recipe.name.toLowerCase().includes(val.toLowerCase()));
       setFilteredRecipes(filtered);
     } else {
       setFilteredRecipes(recipes);
@@ -41,6 +41,10 @@ function HomeScreen() {
       <View style={styles.content}>
         {filteredRecipes.map((recipe) => {
           return (
+            <View style={styles.thumbnailContainer} key={recipe.id}>
+              <Thumbnail recipe={recipe} />
+            </View>
+          );
         })}
       </View>
     </View>
@@ -54,6 +58,11 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     padding: 15,
+    flexDirection: 'row',
+  },
+
+  thumbnailContainer: {
+    width: Dimensions.get('window').width / 3 - 5,
   },
 });
 
