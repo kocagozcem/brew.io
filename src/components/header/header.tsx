@@ -30,7 +30,7 @@ function Header(props: Props) {
         <View style={styles.createContainer}>
           <TouchableOpacity onPress={() => navigation.navigate('CreateRecipe')}>
             <View>
-              <Icon type="Feather" name="create-outline" />
+              <Icon type="Ionicons" name="create-outline" />
             </View>
           </TouchableOpacity>
         </View>
