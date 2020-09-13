@@ -63,7 +63,7 @@ function MaterialSelect(props: Props) {
           <Input
             keyboardType="number-pad"
             value={String(amount)}
-            onChangeText={(text) => setAmount(!isNaN(Number(text)) ? Number(text) : 0)}
+            onChangeText={(text) => setAmount(!Number.isNaN(Number(text)) ? Number(text) : 0)}
             style={styles.amountInput}
           />
         </Item>
