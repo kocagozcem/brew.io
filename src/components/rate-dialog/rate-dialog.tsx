@@ -24,17 +24,19 @@ function RateDialog(props: Props) {
 
   return (
     <View style={[styles.dialogContainer, {borderColor: colors.border}]}>
-      <Text style={styles.title}>{editingQualification.name}</Text>
+      <Text style={styles.title}>{`Select ${editingQualification.name} Rate`}</Text>
       <View style={styles.rateContainer}>
         {[1, 2, 3, 4, 5].map((val) => (
-          <TouchableOpacity onPress={() => setQualifications(val)}>
-            <Icon
-              key={val}
-              type="MaterialCommunityIcons"
-              style={styles.rateIcon}
-              name={rate >= val ? 'coffee' : 'coffee-outline'}
-            />
-          </TouchableOpacity>
+          <View key={val}>
+            <TouchableOpacity onPress={() => setQualifications(val)}>
+              <Icon
+                key={val}
+                type="MaterialCommunityIcons"
+                style={styles.rateIcon}
+                name={rate >= val ? 'coffee' : 'coffee-outline'}
+              />
+            </TouchableOpacity>
+          </View>
         ))}
       </View>
     </View>
